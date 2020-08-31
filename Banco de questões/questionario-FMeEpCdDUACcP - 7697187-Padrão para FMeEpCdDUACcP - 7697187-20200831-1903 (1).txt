@@ -1,0 +1,300 @@
+// question: 0  name: Switch category to $course$/top/Padrão para FMeEpCdDUACcP - 7697187
+$CATEGORY: $course$/top/Padrão para FMeEpCdDUACcP - 7697187
+
+
+// question: 15531  name: Questão 2
+
+
+// question: 36281  name: Entrega do Projeto Final
+::Entrega do Projeto Final::[html]<p>No arquivo Projeto Final você encontrará a descrição para a elaboração do seu Projeto Final. Após a sua confecção, você deverá anexá-lo aqui, em formato .pdf, até o dia 19/08/2020.</p>{}
+
+
+// question: 33455  name: Visualização Gráfica de Dados 4
+::Visualização Gráfica de Dados 4::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, construa um grafico de linhas para contendo o número de óbitos acumulados no Amazonas e na Região Norte. Anexe o arquivo com o gráfico que você construiu e <span>discorra sobre as conclusões que você pode observar através deste gráfico.</span> </p>{####<p>Existem várias formas de fazer. Uma delas é\:</p>\n<p>covid_Norte \= pd.DataFrame(covid_BR.query('regiao \=\= "Norte"').groupby(['regiao', 'data'])['obitosAcumulado'].sum()/2)<br />covid_Norte['Reg'] \= 'Norte'<br />covid_AM \= pd.DataFrame(covid_BR.query('estado \=\= "AM"').groupby(['estado', 'data'])['obitosAcumulado'].sum()/2)<br />covid_AM['Reg'] \= 'Amazonas'<br />covid_Norte \= covid_Norte.reset_index().set_index('data')[['obitosAcumulado','Reg']]<br />covid_AM \= covid_AM.reset_index().set_index('data')[['obitosAcumulado','Reg']]<br />covid_AM_Norte \= pd.concat([covid_Norte,covid_AM])<br />covid_AM_Norte.index \= pd.to_datetime(covid_AM_Norte.index)<br />grafico \= sns.relplot(x\='data', y\='obitosAcumulado', hue \= 'Reg', kind\='line', data\=covid_AM_Norte.reset_index())<br />grafico.fig.autofmt_xdate()</p>}
+
+
+// question: 15530  name: Questão 1
+
+
+// question: 35352  name: Estatística Descritiva 1
+::Estatística Descritiva 1::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 25/07/2020. Considere o número de óbitos diários na região nordeste. Calcule\:</p>\n<p>a média do número de óbitos diários diretamente;</p>\n<p>e a média através da distribuição de frequência (utilizando o número de classes padrão).</p>\n<p>Qual é aproximadamente o valor absoluto da diferença destas médias?</p>{
+	=<p>3.77</p>#<p>Você acertou!</p>
+	~%50%<p>7.54</p>#<p>Você errou!</p>
+	~<p>5.88</p>#<p>Você errou!</p>
+	~<p>11.76</p>#<p>Você errou!</p>
+	~<p>1.34</p>#<p>Você errou!</p>
+	####<p>Existem várias formas de se obter tal valor. Uma delas é (utilizando as funções dist_freq e media_dist_freq introduzidas na aula 8B)\:</p>\n<p>covid_NE_obitos \= covid_BR.query('regiao \=\= "Nordeste"').groupby('data').sum()['obitosNovos']/2</p>\n<p>np.abs(media_dist_freq(dist_freq(covid_NE_obitos)) - covid_NE_obitos.mean())</p>\n<p> </p>
+}
+
+
+// question: 35357  name: Estatística Descritiva 2
+::Estatística Descritiva 2::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 25/07/2020. Considere o número de casos diários por região do Brasil. Qual região possui os seguintes quantis?</p>\n<p>25% - 35.75</p>\n<p>50% - 273.00</p>\n<p>75% - 2574.50</p>{
+	=<p>Centro-Oeste</p>#<p>Você acertou!</p>
+	~<p>Nordeste</p>#<p>Você errou!</p>
+	~<p>Norte</p>#<p>Você errou!</p>
+	~<p>Sul</p>#<p>Você errou!</p>
+	~<p>Sudeste</p>#<p>Você errou!</p>
+	####<p>Existem várias formas de resolver a questão, uma delas é\:</p>\n<p>covid_casos \= covid_BR.groupby(['regiao','data'])['casosNovos'].sum()/2<br />covid_casos \= covid_casos.reset_index()<br />for reg in covid_casos.regiao.drop_duplicates()\:<br />    print('\\n' + reg)<br />    print(covid_casos.loc[covid_casos.regiao \=\= reg].describe())</p>
+}
+
+
+// question: 35365  name: Estatística Descritiva 3
+::Estatística Descritiva 3::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 25/07/2020. Considere os casos diários de COVID na região Sul. Qual a diferença entre os valores do desvio padrão e do desvio médio?</p>{
+	=<pre>441.77</pre>#<p>Você acertou!</p>
+	~<pre>266.21</pre>#<p>Você errou!</p>
+	~<pre>348.55</pre>#<p>Você errou!</p>
+	~<pre>746.88</pre>#<p>Você errou!</p>
+	~<pre>1161.29</pre>#<p>Você errou!</p>
+	####<p>Existem várias formas de se obter tal valor. Uma delas é\:</p>\n<p>covid_casos \= covid_BR.groupby(['regiao','data'])['casosNovos'].sum()/2<br />covid_casos \= covid_casos.reset_index()<br />covid_casos_sul \= covid_casos.loc[covid_casos.regiao \=\= 'Sul']</p>\n<p>print(covid_casos_sul.std()-covid_casos_sul.mad())</p>
+}
+
+
+// question: 35400  name: Estatística Descritiva 5
+::Estatística Descritiva 5::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 25/07/2020. Considere os óbitos diários de COVID por região do Brasil. Em qual região do Brasil ocorre a menor discrepância entre a média e a mediana do número de óbitos diários. </p>{
+	=<p>Norte</p>#<p>Você acertou!</p>
+	~<p>Nordeste</p>#<p>Você errou!</p>
+	~<p>Sul</p>#<p>Você errou!</p>
+	~<p>Sudeste</p>#<p>Você errou!</p>
+	~<p>Centro-Oeste</p>#<p>Você errou!</p>
+	####<p>Existem várias formas de se obter tal valor. Uma delas é\:</p>\n<p>covid_casos \= covid_BR.query('regiao!\="Brasil"').groupby(['regiao','data'])['obitosNovos'].sum()/2<br />covid_casos \= covid_casos.reset_index()<br />for reg in covid_casos.regiao.drop_duplicates()\:<br /> print('\\n' + reg)<br /> covid_temp \= covid_casos.loc[covid_casos.regiao \=\= reg]<br /> print(np.abs(covid_temp.mean()-covid_temp.median()))</p>
+}
+
+
+// question: 29031  name: Manipulaçao de Dados 1
+::Manipulaçao de Dados 1::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\: Qual o total de óbitos por COVID-19 na cidade de Cabedelo até  dia 01/07/2020?</p>\n<p> </p>{
+	~<p>31</p>#<p>Esse é o total de óbitos até o dia 18/07/2020.</p>\n<p> </p>\n<p>Existem várias formas de obter o resultado correto, uma delas é\: covid_BR.query('municipio \=\= "Cabedelo" and data &lt;\= "2020-07-01"')[['obitosNovos']].sum()</p>
+	~<p>947</p>#<p>Este é o resultado ao somar os óbitos acumulados até o dia 18/07/2020, queremos o total de óbitos até o dia 01/07/2020.</p>\n<p> </p>\n<p>Existem várias formas de obter o resultado correto, uma delas é\: covid_BR.query('municipio \=\= "Cabedelo" and data &lt;\= "2020-07-01"')[['obitosNovos']].sum()</p>
+	~<p>553</p>#<p>Este é o resultado ao somar os óbitos acumulados até o dia 01/07/2020, queremos o total de óbitos.</p>\n<p> </p>\n<p>Existem várias formas de obter o resultado correto, uma delas é\: covid_BR.query('municipio \=\= "Cabedelo" and data &lt;\= "2020-07-01"')[['obitosNovos']].sum()</p>
+	~%50%<p>16</p>#<p>Este resultado não inclui o dia 01/07/2020.</p>\n<p> </p>\n<p>Existem várias formas de obter o resultado correto, uma delas é\: covid_BR.query('municipio \=\= "Cabedelo" and data &lt;\= "2020-07-01"')[['obitosNovos']].sum()</p>
+	=<p>19</p>#<p>Você acertou!</p>
+}
+
+
+// question: 29033  name: Manipulaçao de Dados 2
+::Manipulaçao de Dados 2::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\: Qual o primeiro dia em que João Pessoa teve o primeiro óbito confirmado?</p>{
+	=<p>05/04/2020</p>#<p>Você acertou!</p>
+	~<p>30/03/2020</p>#<p>Você errou!</p>
+	~<p>19/03/2020</p>#<p>Você errou!</p>
+	~<p>01/04/2020</p>#<p>Você errou!</p>
+	~<p>10/04/2020</p>#<p>Você errou!</p>
+	####<p>Existem várias formas de obter a resposta correta. Uma delas é\:</p>\n<p>covid_BR.set_index('data').query('municipio \=\= "João Pessoa" and obitosNovos&gt;0')['obitosNovos'].index[0]</p>\n<p> </p>
+}
+
+
+// question: 29034  name: Manipulação de Dados 3
+::Manipulação de Dados 3::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\: Quais cidades possuíam mais de 2000 óbitos até o dia 10/07/2020?</p>{
+	=<p>Fortaleza, Rio de Janeiro e São Paulo</p>#<p>Você acertou!</p>
+	~<p>Manaus, Rio de Janeiro e São Paulo</p>#<p>Você errou!</p>
+	~<p>Fortaleza, Manaus e São Paulo</p>#<p>Você errou!</p>
+	~<p>Fortaleza, Recife, Rio de Janeiro e São Paulo</p>#<p>Você errou!</p>
+	~<p>Manaus, Fortaleza, Recife e São Paulo</p>#<p>Você errou!</p>
+	####<p>Existem várias formas de obter a resposta correta. Uma delas é\:</p>\n<p>covid_BR.query('obitosAcumulado &gt; 2000 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna()</p>
+}
+
+
+// question: 29036  name: Manipulação de Dados 5
+::Manipulação de Dados 5::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR responda\:</p>\n<p>Quantas cidades diferentes chegaram a apresentar "obitosNovos" negativo até o dia 10/07/2020?</p>{
+	~<p>0</p>#<p>Infelizmente você errou.</p>\n<p>Uma forma de verificar é\:</p>\n<p>len(covid_BR.query('obitosNovos &lt;0 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna())</p>
+	~<p>709</p>#<p>Este é o total de cidades que apresentaram "obitosNovos" negativo até o dia 18/07/2020.</p>\n<p> </p>\n<p>Uma forma de verificar é\:</p>\n<p>len(covid_BR.query('obitosNovos &lt;0 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna())</p>
+	~<p>664</p>#<p>Este é o total de cidades que apresentaram "obitosNovos" negativo até o dia 12/07/2020.</p>\n<p> </p>\n<p>Uma forma de verificar é\:</p>\n<p>len(covid_BR.query('obitosNovos &lt;0 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna())</p>
+	~%50%<p>2780</p>#<p>Este é o número de cidades que apresentaram "casosNovos" negativo!</p>\n<p> </p>\n<p>Uma forma de verificar é\:</p>\n<p>len(covid_BR.query('obitosNovos &lt;0 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna())</p>
+	=<p>654</p>#<p>Você acertou!</p>
+}
+
+
+// question: 18961  name: Q1
+::Q1::[html]<p>Veja o notebook\: Suporte ao Questionario 2.</p>{
+	~%50%<p><span style\="font-family\: 'courier new', courier, monospace;">sympy.core.add.Add </span></p>
+	~%50%<p><span style\="font-family\: 'courier new', courier, monospace;">sympy.core.add.Mul</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">sympy.core.add.Exp</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">exp</span></p>
+}
+
+
+// question: 18962  name: Q2
+::Q2::[html]<p>Veja notebook\: Suporte ao Questionário 2.</p>{
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">P<sub>1</sub> &gt; P<sub>2</sub></span></p>
+	=<p><span style\="font-family\: 'courier new', courier, monospace;">P<sub>1</sub> &lt; P<sub>2</sub></span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">P<sub>1</sub> \= P<sub>2</sub> &gt; 0</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">P<sub>1</sub> \= P<sub>2</sub> \= 0</span></p>
+}
+
+
+// question: 18964  name: Q3
+::Q3::[html]<p><span>Veja notebook\: Suporte ao Questionário 2.</span></p>{
+	~<p>maior do que 50%.</p>
+	~<p>entre 30% e 45%.</p>
+	=<p>aproximadamente 20%.</p>
+	~<p>menor do que 10%.</p>
+}
+
+
+// question: 18965  name: Q4
+::Q4::[html]<p><span>Veja notebook\: Suporte ao Questionário 2.</span></p>{
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">fexp \= lambda k,L,t\: exp(-k(L-t))</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">fexp \= lambda k,L-t\: exp(-k(L-t))</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">fexp \= lambda k,Lt\: exp(-k*(Lt))</span></p>
+	=<p><span style\="font-family\: 'courier new', courier, monospace;">fexp \= lambda k,L,t\: exp(-k*(L-t))</span></p>
+}
+
+
+// question: 18967  name: Q5
+::Q5::[html]<p><span>Veja notebook\: Suporte ao Questionário 2.</span></p>{
+	=<p><span style\="font-family\: 'courier new', courier, monospace;">x \= 2SEIR; y \= 1/SEIR</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">x \= 3SEIR; y \= 0</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">x \= SEIR;  y \= 2/SEIR</span></p>
+	~<p><span style\="font-family\: 'courier new', courier, monospace;">x \= SEIR;  y \= 1/SEIR</span></p>
+}
+
+
+// question: 25853  name: Questão 1
+::Questão 1::[html]<p>Veja Questão 1 do arquivo de Suporte ao Questionário 4.</p>{
+	~<pre><span>(22.6,14)</span></pre>
+	=<pre><span>(22.5,12)</span></pre>
+	~<pre><span>(22.1,12)</span></pre>
+	~<pre><span>(22.2,23)</span></pre>
+}
+
+
+// question: 21577  name: Questão 1
+::Questão 1::[html]<p>Verificar questão correspondente no notebook de suporte. </p>{
+	~<pre><code>pais[9] \= 'Afeganistão'</code><span> e </span><code>ISE[14] \= 9.9</code></pre>
+	~<pre><code>pais[9] \= 'Laos'</code><span> e </span><code>ISE[14] \= 33.0</code></pre>
+	=<pre><code>pais[9] \= 'Israel'</code><span> e </span><code>ISE[14] \= 35.3</code></pre>
+	~<pre><code>pais[9] \= 'Gâmbia'</code><span> e </span><code>ISE[14] \= 39.0</code></pre>
+}
+
+
+// question: 25854  name: Questão 2
+::Questão 2::[html]<p>Veja Questão 2 do arquivo de Suporte ao Questionário 4.</p>{
+	~<pre>x \= 1.01</pre>
+	~<pre>x \= 0.65</pre>
+	~<pre>x \= 0.90</pre>
+	=<pre>x \= 2.26</pre>
+}
+
+
+// question: 21578  name: Questão 2
+::Questão 2::[html]<p>Verificar questão correspondente no notebook de suporte.</p>{
+	~<pre><span>n \= 8</span></pre>
+	~<pre><span>n \= 10</span></pre>
+	~<pre><span>n \= 11</span></pre>
+	=<pre><span>n \= 9</span></pre>
+}
+
+
+// question: 21579  name: Questão 3
+::Questão 3::[html]<p>Verificar notebook de suporte.</p>{
+	=<pre><span><span>\{\}</span><br /></span></pre>
+	~<pre><span><span>\{terawatt-hora\}</span><br /></span></pre>
+	~<p><span>\{percentual\}</span></p>
+	~<p><span>\{número inteiro\}</span></p>
+}
+
+
+// question: 25856  name: Questão 3
+::Questão 3::[html]<p>Veja Questão 3 do arquivo de Suporte ao Questionário 4.</p>{
+	=<p><span>7.7x10</span><sup>8</sup><span> kcal &lt; E &lt; 7.8x10</span><sup>8</sup><span> kcal</span></p>
+	~<p><span>7.5x10</span><sup>8</sup><span> kcal &lt; E &lt; 7.6x10</span><sup>8</sup><span> kcal</span></p>
+	~<p><span>7.6x10</span><sup>8</sup><span> kcal &lt; E &lt; 7.7x10</span><sup>8</sup><span> kcal</span></p>
+	~<p><span>7.8x10</span><sup>8</sup><span> kcal &lt; E &lt; 7.9x10</span><sup>8</sup><span> kcal</span></p>
+}
+
+
+// question: 15533  name: Questão 4
+::Questão 4::[html]<p>Seja a expressão matemática\:</p>\n<pre>123456 x 123456 x 123456 x 1233456 x 1234456 x 123456 x 1234456 x 123456 x 123456</pre>\n<p>Julgue os itens a seguir\:</p>\n<p>i) o último bloco de 4 dígitos deste produto é 6496 e, além disso, existem variáveis <em>a</em>, <em>b</em>, e <em>c</em> do tipo <em>int</em>, tais que, em Python, permitem-nos escrever este produto como</p>\n<pre>a**6*b*c**2</pre>\n<p>ii) o último bloco de 4 dígitos deste produto é 6496 e, <br />além disso, existem variáveis variáveis <em>a</em>, <em>b</em>, e <em>c</em> do tipo <em>int</em>, tais que, em Python, permitem-nos escrever este produto como </p>\n<pre>a**2*(b**3)c**4</pre>\n<p>iii) o último bloco de 4 dígitos deste produto é 4496 e, <br />além disso, existem variáveis <em>a</em>, <em>b</em>, e <em>c</em> do tipo <em>int</em>, tais que, em Python, permitem-nos escrever este produto como</p>\n<pre>a**9*(b*c)**0</pre>\n<p>Assinale a alternativa correta. </p>{
+	=<p>apenas i) é correta.</p>
+	~<p>i) e ii) são corretas. </p>
+	~<p>apenas iii) é correta.</p>
+	~<p>nenhum é correto.</p>
+}
+
+
+// question: 25857  name: Questão 4
+::Questão 4::[html]<p>Veja Questão 4 do arquivo de Suporte ao Questionário 4.</p>{
+	~<pre>('Cássio', 101.50, 'Fagner', 100.05)</pre>
+	~<pre>('Cássio', 100.90, 'Fred', 98.42)</pre>
+	=<pre>('Cássio', 100.87, 'Paulinho', 100.05)</pre>
+	~<pre>('Alisson', 100.87, 'Paulinho', 100.00)</pre>
+}
+
+
+// question: 21580  name: Questão 4
+::Questão 4::[html]<p>Verificar notebook de suporte.</p>{
+	~<pre><span>(10, 43.15)</span></pre>
+	=<pre><span>(10, 40.37)</span></pre>
+	~<pre><span>(9, 43.15)</span></pre>
+	~<pre><span>(9, 40.37)</span></pre>
+}
+
+
+// question: 21581  name: Questão 5
+::Questão 5::[html]<p>Verificar notebook de suporte.</p>{
+	~<pre><span>[3,5,6,9,10]</span></pre>
+	~<pre><span>[6,10,12,18,20]</span></pre>
+	=<pre><span>[6,10,12,17,21]</span></pre>
+	~<pre><span>[3,5,7,9,11]</span></pre>
+}
+
+
+// question: 25858  name: Questão 5
+::Questão 5::[html]<p>Veja Questão 5 do arquivo de Suporte ao Questionário 4.</p>{
+	~<pre>M1 &gt; M2 &gt; M3</pre>
+	=<pre>M1 &lt; M2 &lt; M3</pre>
+	~<pre>M1 \= M2 &lt; M3</pre>
+	~<pre>M1 \= M3 &gt; M2</pre>
+}
+
+
+// question: 15534  name: Questão 5
+::Questão 5::[html]<p>Considere um triângulo retângulo cujos catetos valem, respectivamente, 402.524 <em>km</em> e 3.234.998  <em>m</em>. Use seu interpretador Python para calcular a hipotenusa <em>h</em> e assinale a alternativa correta.</p>\n<p><em><strong>Observação\:</strong> o ponto decimal do enunciado da questão obedece ao padrão de numeração do cotidiano; nas alternativas, trata-se do ponto flutuante.</em></p>{
+	=<p><em>h</em> \= 4.025370 x 10<sup>5</sup> <em>km</em></p>
+	~<p><em>h</em> \= 4.025370 x 10<sup>8</sup> <em>km</em></p>
+	~<p><em>h</em> \= 4.025370 x 10<sup>9</sup> <em>m</em></p>
+	~<p><em>h</em> \= 4.025370 x 10<sup>5</sup> <em>m</em></p>
+}
+
+
+// question: 33456  name: Visualização Gráfica de Dados 3
+::Visualização Gráfica de Dados 3::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 15/07/2020. Considere as cidades da Paraíba\: João Pessoa, Campina Grande, Bayeux e Santa Rita. Qual delas possui outlier negativo no número de obitosNovos, ao realizarmos um boxplot comparativo do número de óbitos diários destas cidades?</p>{
+	=<p>Santa Rita</p>#<p>Você acertou</p>
+	~<p>João Pessoa</p>#<p>Você errou</p>
+	~<p>Bayeux</p>#<p>Você errou</p>
+	~<p>Campina Grande</p>#<p>Você errou</p>
+	=<p>Todos os outliers dos números de óbitos diários são positivos para todas as cidades.</p>#<p>Você errou</p>
+}
+
+
+// question: 32648  name: Vizualização Gráfica de Dados 2
+::Vizualização Gráfica de Dados 2::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\:  Através da análise do histograma do número de óbitos por COVID-19 na cidade de Bayeux, por dia, até dia 15/07/2020, qual o intervalo de frequência do número de óbitos apresentado no bloco que contém o ponto zero?</p>{
+	=<p>60 a 70</p>#<p>Você acertou</p>
+	~<p>50 a 60</p>#<p>Você errou</p>
+	~<p>40 a 50</p>#<p>Você errou</p>
+	~<p>0 a 10</p>#<p>Você errou</p>
+	~<p>10 a 20</p>#<p>Você errou</p>
+	####<p>Existem várias formas de construir este histograma. Uma delas é\:</p>\n<p>covid_BR.set_index('data').query('municipio \=\= "Bayeux" and data &lt;\= "2020-07-15"')['obitosNovos'].plot(kind\="hist")</p>
+}
+
+
+// question: 15532  name: Questão 3
+::Questão 3::[html]<p>Observe o seguinte excerto de código Python\:</p>\n<p><img src\="@@PLUGINFILE@@/excerto-codigo.png" alt\="Excerto de código Python" width\="175" height\="296" /></p>\n<p>Qual é o valor de D?</p>{#
+	=%100%1180:0#
+}
+
+
+// question: 35383  name: Estatística Descritiva 4
+::Estatística Descritiva 4::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 25/07/2020. Considere a distribuição de frequência do número de óbitos por região, com número de classes padrão. Em todas as regiões do Brasil a moda do número de óbitos diários sempre ocorre na classe (intervalo) que contém o valor 0.</p>{TRUE#<p>Você errou!</p>#<p>Você acertou!</p>####<p>Existem várias formas de resolver a questão. Uma delas é\:</p>\n<p>covid_obitos \= covid_BR.groupby(['regiao','data'])['obitosNovos'].sum()/2<br />covid_obitos \= covid_casos.reset_index()[['regiao','obitosNovos']]<br />for reg in covid_casos.regiao.drop_duplicates()\:<br />    print('\\n' + reg)<br />    covid_reg \= covid_obitos.loc[covid_obitos.regiao \=\= reg]['obitosNovos']<br />    covid_reg \= dist_freq(covid_reg)<br />    print(moda_dist_freq(covid_reg))<br />    print(covid_reg)</p>}
+
+
+// question: 29035  name: Manipulação de Dados 4
+::Manipulação de Dados 4::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\: </p>\n<p>Até o dia 10/07/2020 existe alguma cidade em que foi reportado óbitos acumulados positivo ao mesmo tempo em que se reportou casos acumulados zero.</p>{TRUE#<p>Você errou! Existe uma\: Caculé. Apresentou obitosAcumulado \= 1 ao mesmo tempo em que</p>\n<p>casosAcumulado \= 0.</p>\n<p>Observe ainda que esta cidade chegou a apresentar casosNovos negativo!</p>\n<p>Para verificar, podemos fazer\: </p>\n<p>covid_BR.query('casosAcumulado \=\= 0 and obitosAcumulado &gt; 0 and data &lt;\= "2020-07-10"').municipio.drop_duplicates().array.dropna()</p>\n<p> </p>#<p>Você acertou! Observe que só foi uma\: Caculé. Apresentou obitosAcumulado \= 1 ao mesmo tempo em que</p>\n<p>casosAcumulado \= 0.</p>\n<p>Observe ainda que esta cidade chegou a apresentar casosNovos negativo!</p>}
+
+
+// question: 33457  name: Visualização Gráfica de Dados 5
+::Visualização Gráfica de Dados 5::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR até o dia 15/07/2020, responda. Ao construirmos um gráfico de linhas do número de obitosNovos da região Nordeste utilizando-se média aritmética móvel de 7 dias, podemos concluir que o número de óbitos diários no nordeste apresenta sinais de estabilização nos dois últimos meses.</p>{TRUE#<p>Você errou, pois podemos concluir que houve sinais de estabilização já que nestes dois meses a média aritmética móvel do número de óbitos diários oscilou na faixa de 300 a 400.</p>#<p>Você acertou. De fato, podemos concluir que houve sinais de estabilização pois nestes dois meses a média aritmética móvel do número de óbitos diários oscilou na faixa de 300 a 400.</p>####<p>Existem várias formas de construir o gráfico com as médias móveis de óbitos no Nordeste. Uma delas é\:</p>\n<p>covid_BR.data \= pd.to_datetime(covid_BR.data)<br />covid_Nordeste_MM \= pd.DataFrame(<br />covid_BR.query('regiao \=\= "Nordeste" and data &lt;\= "2020-07-15"').groupby(['regiao', 'data'])['obitosNovos'].sum()/2).rolling(7).mean()<br />covid_Nordeste_MM \= covid_Nordeste_MM.reset_index().set_index('data')['obitosNovos']<br />covid_Nordeste_MM.plot()</p>}
+
+
+// question: 32640  name: Vizualização Gráfica de Dados 1
+::Vizualização Gráfica de Dados 1::[html]<p>Com base no banco de dados HIST_PAINEL_COVIDBR, responda\:  Através da análise do boxplot do número de óbitos por COVID-19 na cidade de João Pessoa, por dia, até dia 15/07/2020, podemos afirmar a existência de outliers.</p>{TRUE#<p>Ao visualizarmos o boxplot, observamos a existência de outliers.</p>#<p>De fato, ao visualizarmos o boxplot, observamos a existência de outliers.</p>####<p>Existem várias formas de construir tal boxplot, uma delas é\:</p>\n<p>covid_BR.query('municipio \=\= "João Pessoa" and data &lt;\= "2020-07-15" ')['obitosNovos'].plot(kind\="box")</p>}
+
+
